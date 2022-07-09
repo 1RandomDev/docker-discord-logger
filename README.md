@@ -10,7 +10,7 @@ docker run -d --name=docker-discord-logger \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -e CONTAINERS=Container1:Container2:Container3 \
     -e WEBHOOK_URL=<discord webhook url> \
-    docker-discord-logger:latest
+    ghcr.io/1randomdev/docker-discord-logger:latest
 ```
 
 Docker Compose:
@@ -20,7 +20,7 @@ version: "3.4"
 services:
   docker-discord-logger:
     container_name: docker-discord-logger
-    image: docker-discord-logger:latest
+    image: ghcr.io/1randomdev/docker-discord-logger:latest
     network_mode: bridge
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
