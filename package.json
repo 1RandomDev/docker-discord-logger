@@ -1,6 +1,6 @@
 {
     "name": "docker-discord-logger",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Script that logs the output of docker containers to discord via the webhook api.",
     "main": "src/main.js",
     "scripts": {
