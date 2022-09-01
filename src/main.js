@@ -28,14 +28,14 @@ const dockerEventListener = childProcess.spawn('docker', ['events', '--filter', 
 });
 dockerEventListener.stdout.on('data', data => {
     data = JSON.parse(data.toString());
-    const containerName = data.Actor.Attributes.name;
-    if(containers.includes(containerName)) {
+    const containerName = containers.find(container => container == data.Actor.Attributes.name || data.id.startsWith(container));
+    if(containerName) {
         console.log(`Container "${containerName}" started, attaching listener.`);
         monitorContainer(containerName, true);
     }
 });
 dockerEventListener.on('close', () => {
-    console.log('Event listener process exited.')
+    console.log('Event listener process exited.');
 });
 
 function monitorContainer(containerName, notifyDiscord) {
@@ -54,7 +54,7 @@ function monitorContainer(containerName, notifyDiscord) {
 
     logListener.on('close', () => {
         console.log(`Log listener for container container "${containerName}" exited.`);
-        if(notifyDiscord) discordWebhook.send(`Container **"${containerName}"** exited.`);
+        discordWebhook.send(`Container **"${containerName}"** exited.`);
     });
 
     if(notifyDiscord) discordWebhook.send(`Container **"${containerName}"** started.`);
