@@ -8,7 +8,6 @@ Docker CLI:
 ```bash
 docker run -d --name=docker-discord-logger \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    -e CONTAINERS=Container1:Container2:Container3 \
     -e WEBHOOK_URL=<discord webhook url> \
     ghcr.io/1randomdev/docker-discord-logger:latest
 ```
@@ -25,10 +24,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - CONTAINERS=Container1:Container2:Container3
       - WEBHOOK_URL=<discord webhook url>
     restart: unless-stopped
 ```
+
+### Monitoring containers
+To monitor a container add the label `discord-logger.enabled=true` via the option `--label`.
 
 ### Build it yourself
 ```bash
